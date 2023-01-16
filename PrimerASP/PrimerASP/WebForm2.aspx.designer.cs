@@ -11,35 +11,26 @@ namespace PrimerASP
 {
 
 
-    public partial class WebForm1
+    public partial class WebForm2
     {
 
         /// <summary>
-        /// Control form1.
+        /// Control ElCuerpo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ElCuerpo;
 
         /// <summary>
-        /// Control txtCaja.
+        /// Control Button1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCaja;
-
-        /// <summary>
-        /// Control btnOK.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton btnOK;
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton Button1;
 
         /// <summary>
         /// Control Button2.
@@ -51,12 +42,12 @@ namespace PrimerASP
         protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
-        /// Control spnRes.
+        /// Control TextBox1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnRes;
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
     }
 }
