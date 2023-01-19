@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClasesTienda
+namespace ClassLibrary1
 {
     public class Cliente
     {
@@ -14,31 +14,42 @@ namespace ClasesTienda
         public string NombreCompleto { get; set; }
         public override string ToString()
         {
-            return string.Format("{0} {1}", Nombre, Apellido);
+            return string.Format("{0} {1}", Apellido, Nombre);
         }
-        private static List<Cliente> CrearListaCLientes()
+        public static List<Cliente> CrearListaClientes()
         {
-            List<Cliente> Clientes = new List<Cliente>();
+            List<Cliente> clientes = new List<Cliente>();
+
             Cliente c1 = new Cliente();
             c1.idCliente = 1;
-            c1.Nombre = "Pepe";
-            c1.Apellido = "Motes";
+            c1.Nombre = "Juan";
+            c1.Apellido = "Rodriguez";
             c1.NombreCompleto = c1.ToString();
-            Clientes.Add(c1);
+            clientes.Add(c1);
+
             Cliente c2 = new Cliente();
             c2.idCliente = 2;
             c2.Nombre = "José";
             c2.Apellido = "Escribano";
             c2.NombreCompleto = c2.ToString();
-            Clientes.Add(c2);
+            clientes.Add(c2);
+
             Cliente c3 = new Cliente();
             c3.idCliente = 3;
             c3.Nombre = "María";
             c3.Apellido = "Guzmán";
             c3.NombreCompleto = c3.ToString();
-            Clientes.Add(c3);
+            clientes.Add(c3);
 
-            return Clientes;
+            Cliente vacio = new Cliente();
+            vacio.idCliente = 0;
+            vacio.Nombre = String.Empty;
+            vacio.Apellido = String.Empty;
+            vacio.NombreCompleto = "-Elegir Cliente-";
+            clientes.Insert(0, vacio);
+
+
+            return clientes;
         }
     }
 }

@@ -7,29 +7,29 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace ValidacionConClases
+namespace PreviousPage
 {
 
 
-    public partial class WebForm1
+    public partial class SegundaPaginaAsociada
     {
 
         /// <summary>
-        /// Control form1.
+        /// Control TextBox1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
 
         /// <summary>
-        /// Control cmbClientes.
+        /// Control txtFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmbClientes;
+        protected global::System.Web.UI.WebControls.TextBox txtFecha;
     }
 }

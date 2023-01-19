@@ -1,4 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="ValidacionConClases.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="PreviousPage.WebForm1" %>
+
+
 
 <!DOCTYPE html>
 
@@ -10,8 +12,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            Clientes
-            <asp:DropDownList ID="cmbClientes" runat="server"></asp:DropDownList>
+            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+            <asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click"/>
         </div>
     </form>
 </body>
