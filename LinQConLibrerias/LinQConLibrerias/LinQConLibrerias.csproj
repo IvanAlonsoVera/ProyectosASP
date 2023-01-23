@@ -67,11 +67,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SkipTake.aspx" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SkipTake.aspx.cs">
+      <DependentUpon>SkipTake.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SkipTake.aspx.designer.cs">
+      <DependentUpon>SkipTake.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
