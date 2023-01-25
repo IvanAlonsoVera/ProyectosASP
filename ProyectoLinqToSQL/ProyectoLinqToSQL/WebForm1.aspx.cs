@@ -112,9 +112,12 @@ namespace ProyectoLinqToSQL
 
                              }).ToList();
 
-                var calcularVenta = (from em in db.Employees
-                                     where em.FirstName + " " + em.LastName == "Michael Suyama"
-                                     select em).Average();
+                var data10L = db.Orders
+                      .Join(db.Employees, or => or.EmployeeID, emp => emp.EmployeeID, (or, emp) => new
+                      {
+                          Fecha = Convert.ToDateTime(or.OrderDate).ToShortDateString(),
+                          Nombre = "(" + emp.FirstName + " " + emp.LastName + ")"
+                      }).Where(emp => emp.Nombre == "(Steven Buchanan)").ToList();
 
                 gv1.DataSource = data10;
                 gv1.DataBind();

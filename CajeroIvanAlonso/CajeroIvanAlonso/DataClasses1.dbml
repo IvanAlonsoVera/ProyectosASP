@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Cajeros" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=T06W02;Initial Catalog=Cajeros;User ID=SA" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CajerosConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Cajeros" Member="Cajeros">
+    <Type Name="Cajeros">
+      <Column Name="Codigo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NombreApellidos" Type="System.String" DbType="NChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Cajeros_Venta" Member="Venta" ThisKey="Codigo" OtherKey="Cajero" Type="Venta" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Maquinas_Registradoras" Member="Maquinas_Registradoras">
+    <Type Name="Maquinas_Registradoras">
+      <Column Name="Codigo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Piso" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Maquinas_Registradoras_Venta" Member="Venta" ThisKey="Codigo" OtherKey="Maquina" Type="Venta" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Productos" Member="Productos">
+    <Type Name="Productos">
+      <Column Name="Codigo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Precio" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Productos_Venta" Member="Venta" ThisKey="Codigo" OtherKey="Producto" Type="Venta" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Venta" Member="Venta">
+    <Type Name="Venta">
+      <Column Name="Codigo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cajero" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Maquina" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Cajeros_Venta" Member="Cajeros" ThisKey="Cajero" OtherKey="Codigo" Type="Cajeros" IsForeignKey="true" />
+      <Association Name="Maquinas_Registradoras_Venta" Member="Maquinas_Registradoras" ThisKey="Maquina" OtherKey="Codigo" Type="Maquinas_Registradoras" IsForeignKey="true" />
+      <Association Name="Productos_Venta" Member="Productos" ThisKey="Producto" OtherKey="Codigo" Type="Productos" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
