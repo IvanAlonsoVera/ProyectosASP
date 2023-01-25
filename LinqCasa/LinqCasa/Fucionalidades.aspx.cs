@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -54,7 +55,17 @@ namespace LinqCasa
                                        FechaPedido = Convert.ToDateTime(o.OrderDate).ToShortDateString()
                                    }).ToList();
 
-                //gv1.DataSource = Listado1998;
+                var Listado1998L = db.Orders
+                    .Join(db.Customers, o => o.CustomerID, c => c.CustomerID, (o, c) => new { o, c })
+                    .Where(x => x.o.OrderDate >= Convert.ToDateTime("01/01/1998 0:00:00"))
+                    .Select(x => new
+                    {
+                        CustomerID = x.c.CustomerID,
+                        OrderID = x.o.OrderID,
+                        FechaPedido = Convert.ToDateTime(x.o.OrderDate).ToShortDateString()
+                    }).ToList();
+
+                //gv1.DataSource = Listado1998L;
                 //gv1.DataBind();
 
                 var listadoPedidosWashingtonOrd = from p in db.Products
@@ -63,7 +74,16 @@ namespace LinqCasa
                                                   orderby p.ProductName descending
                                                   select p;
 
-                //gv1.DataSource = listadoPedidosWashingtonOrd;
+                var listadoPedidosWashingtonOrdL = db.Categories
+                     .Join(db.Products, c => c.CategoryID, p => p.CategoryID, (c, p) => new { c, p })
+                     .OrderByDescending(x => x.p.ProductID)
+                     .Select(x => new
+                     {
+                         Producto_Nombre = x.p.ProductName,
+                         Categoria = x.c.CategoryID
+                     }).ToList();
+
+                //gv1.DataSource = listadoPedidosWashingtonOrdL;
                 //gv1.DataBind();
 
                 var productoCaro = (from p in db.Products
@@ -74,13 +94,18 @@ namespace LinqCasa
                                         Precio_Max = g.Max(item => item.UnitPrice)
                                     }).ToList();
 
-                //var productoCaroL = db.Order_Details
-                //    .Join(db.Products, o => o.ProductID, p => p.ProductID, (o, p) => new { o, p })
-                //    .Select(p=>p.ProductName)
-                //    .OrderBy(o => o.UnitPrice).First();
+                //No Funciona
+                //var productoCaroL = db.Products
+                //    .GroupBy(g => g.p.CategoryID)
+                //    .Select(x =>
+                //    {
+                //        CategoriaID = g.Key,
+                //        Precio_Max = g.Max(item => item.UnitPrice)
+                //    }).ToList();
 
-                gv1.DataSource = productoCaro;
-                gv1.DataBind();
+
+                //gv1.DataSource = productoCaro;
+                //gv1.DataBind();
 
                 var mediaPrecios = (from p in db.Products
                              group p by p.CategoryID
@@ -90,6 +115,15 @@ namespace LinqCasa
                                  CategoriaID = grupo.Key,
                                  Media = grupo.Average(x => x.UnitPrice)
                              }).ToList();
+
+                //No Funciona
+                //var mediaPrecios = db.Products
+                //    .GroupBy(g => g.p.CategoryID)
+                //    .Select(x =>
+                //    {
+                //        CategoriaID = grupo.Key,
+                //        Media = grupo.Average(x => x.UnitPrice)
+                //    }).ToList();
 
                 //gv1.DataSource = mediaPrecios;
                 //gv1.DataBind();
