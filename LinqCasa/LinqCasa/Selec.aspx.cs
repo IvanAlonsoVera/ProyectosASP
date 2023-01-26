@@ -11,18 +11,26 @@ namespace LinqCasa
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            using (DataClasses1DataContext db = new DataClasses1DataContext())
+            if(!IsPostBack)
             {
-                //Version Clasica
-                var cat = (from c in db.Categories
-                           select c.CategoryName).ToList();
-                foreach (var catItem in cat)
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
                 {
-                    ddl1.Items.Add(catItem);
-                }
-                //Version LAMBDA
-                var catL = db.Categories.Select(c=>c.CategoryName).ToList();
+                    //Version Clasica
+                    var cat = db.Categories
+                               .Select(c => new
+                               {
+                                   c.CategoryID,
+                                   c.CategoryName
+                               }).ToList();
 
+
+
+                    ddl1.DataSource = cat;
+                    ddl1.DataTextField = "CategoryName";
+                    ddl1.DataValueField = "CategoryName";
+                    DataBind();
+
+                }
             }
         }
 
@@ -30,21 +38,21 @@ namespace LinqCasa
         {
             using (DataClasses1DataContext db = new DataClasses1DataContext())
             {
-                //Version Clasica
-                var catSelect = (from p in db.Products
-                                 join c in db.Categories
-                                 on p.CategoryID equals c.CategoryID
-                                 where c.CategoryName == ddl1.SelectedValue
-                                 select new 
-                                 { 
-                                   Nombre_Productos_Cat_Selected = p.ProductName
-                                 }).ToList();
-                //Version LAMBDA
-                //var catSelectL = db.Products.Join(db.Categories, p=>p.CategoryID, c=>c.CategoryID, (p, c) => new {p,c})
-                //    .Where(c=>c.CategoryName == ddl1.SelectedValue
+                var data = db.Products
+                    .Where(p => p.CategoryID == Convert.ToInt32(ddl1.SelectedValue))
+                    .Select(p => new
+                    {
+                        p.ProductID,
+                        p.ProductName,
+                        p.QuantityPerUnit,
+                        p.UnitPrice,
+                        p.UnitsInStock,
+                        p.UnitsOnOrder
+                    }).ToList();
+
                   
 
-                gv1.DataSource = catSelect;
+                gv1.DataSource = data;
                 gv1.DataBind();
             }
                 

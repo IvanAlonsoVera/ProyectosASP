@@ -10,10 +10,17 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <h1>Por favor selecciones una categoria:</h1>
-            <asp:DropDownList ID="ddl1" runat="server" OnSelectedIndexChanged="ddl1_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+            <h1>Por favor seleccione una categoria:</h1>
+            <asp:DropDownList 
+                ID="ddl1" 
+                runat="server" 
+                OnSelectedIndexChanged="ddl1_SelectedIndexChanged" 
+                AppendDataBoundItems="true"
+                AutoPostBack="true">
+                <asp:ListItem Selected="True" Text="-Seleccione Categoria-" Value="0"></asp:ListItem>
+            </asp:DropDownList>
             <br />
-            <asp:GridView ID="gv1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+            <asp:GridView ID="gv1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" EmptyDataText="no available">
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

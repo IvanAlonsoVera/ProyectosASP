@@ -10,7 +10,17 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:GridView ID="gv1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+            <asp:GridView 
+                ID="gv1" 
+                runat="server" 
+                CellPadding="4" 
+                ForeColor="#333333" 
+                GridLines="None"
+                SelectedIndexChanged=""
+                >
+                <Columns>
+                    <asp:BoundField runat="server" CommandName="select" Text="Stock" />
+                </Columns>
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
