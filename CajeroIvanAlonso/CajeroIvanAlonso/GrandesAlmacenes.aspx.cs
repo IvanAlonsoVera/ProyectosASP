@@ -63,15 +63,15 @@ namespace CajeroIvanAlonso
                 int _cajero = ddlCajero.SelectedIndex;
                 int _planta = ddlPlanta.SelectedIndex;
                 int _producto = ddlProducto.SelectedIndex;
-                int _cantidad = Convert.ToInt32(tbCantidad.Text);
-                if(!(_cajero==0 || _planta==0 || _producto==0 || _cantidad == 0))
+                string _cantidad = tbCantidad.Text;
+                if(!(_cajero==0 || _planta==0 || _producto==0 || _cantidad == "0" || _cantidad=="" ))
                 {
                     var newVenta = new Venta()
                     {
                         Cajero = _cajero,
                         Maquina = _planta,
                         Producto = _producto,
-                        Cantidad = _cantidad
+                        Cantidad = Convert.ToInt32(_cantidad)
                     };
                     db.Venta.InsertOnSubmit(newVenta);
                     db.SubmitChanges();
@@ -105,10 +105,37 @@ namespace CajeroIvanAlonso
 
         protected void btnImprimir_Click(object sender, EventArgs e)
         {
-
+            Server.Transfer("Imprimir.aspx");
         }
 
         protected void ddlCajero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cargarGV();
+            hdnID.Value = ddlCajero.SelectedValue;
+        }
+
+        protected void gv1_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "eliminar")
+            {
+                using (DataClasses1DataContext db = new DataClasses1DataContext())
+                {
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    GridViewRow fila = gv1.Rows[index];
+                    TableCell id = fila.Cells[0];
+                    int idVenta = Convert.ToInt32(id.Text);
+                    var query = db.Venta
+                        .Where(v => v.Codigo == idVenta)
+                        .Select(v => v).First();
+
+                    db.Venta.DeleteOnSubmit(query);
+                    db.SubmitChanges();
+                    cargarGV();
+                }
+            }
+        }
+
+        private void cargarGV()
         {
             using (DataClasses1DataContext db = new DataClasses1DataContext())
             {
@@ -126,11 +153,14 @@ namespace CajeroIvanAlonso
                         Total = x.Cantidad * x.Productos.Precio
                     }).ToList();
 
-                
+                var facturacion = db.Venta
+                     .Where(vt => vt.Cajero == idCajero)
+                     .Select(vt => vt).Sum(vt => vt.Cantidad * vt.Productos.Precio);
+
+                tbTotal.Text = Convert.ToString(facturacion);
                 gv1.DataSource = DataCajero;
                 gv1.DataBind();
             }
-                
         }
     }
 }

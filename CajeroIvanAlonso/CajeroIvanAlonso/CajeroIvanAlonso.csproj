@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GrandesAlmacenes.aspx" />
+    <Content Include="Imprimir.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +84,13 @@
     </Compile>
     <Compile Include="GrandesAlmacenes.aspx.designer.cs">
       <DependentUpon>GrandesAlmacenes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Imprimir.aspx.cs">
+      <DependentUpon>Imprimir.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Imprimir.aspx.designer.cs">
+      <DependentUpon>Imprimir.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
