@@ -127,6 +127,7 @@ namespace CajeroIvanAlonso
                     var query = db.Venta
                         .Where(v => v.Codigo == idVenta)
                         .Select(v => v).First();
+                   
 
                     db.Venta.DeleteOnSubmit(query);
                     db.SubmitChanges();

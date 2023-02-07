@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-3.6.3.js"></script>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Recuperar datos desde el servidor con AJAX JQuery</h1>
+    
+    <div class="container row col-6">
+        <input type="button" id="btnCargar" class="btn btn-dark col-4 mb-3" value="Cargar Categorías" />
+        <label>Categorias: </label>
+        <select class="form-select  mb-3" id="ddlCategoria"></select>
+        <label>Productos: </label>
+        <select class="form-select  mb-3" id="ddlProducto"></select>
+        <label>Unidades en stock: </label>
+        <input type="text" id="tbUdStock" class="form-control mb-3" disabled/>
+        <input type="button" id="btnMedia" class="btn btn-dark col-4 mb-3" value="Calcular Media" />
+        <label>Media: </label>
+        <input type="text" id="tbMedia" class="form-control" disabled />
+    </div>
+</body>
+</html>
+<script>
+    $(function () {
+        $("#btnCargar").click(function() {
+            $.ajax({
+                type: "POST",
+                url: "Formulario.aspx/LLenar_ddlCategorias",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    $("#ddlCategoria")
+                        .empty()
+                        .append($("<option></option>")
+                            .val("0")
+                            .html("-Seleccione Categoria-"));
+                    $.each(data.d, function (key, value) {
+                        var option = $(document.createElement('option'));
+                        option.html(value.NombreCategoria);
+                        option.val(value.CategoriaID);
+                        $("#ddlCategoria").append(option);
+                    });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus + ": " + XMLHttpRequest.responseText);
+                }
+
+            })
+        })
+        $("#ddlCategoria").change(function () {
+            $.ajax({
+                type: "POST",
+                url: "Formulario.aspx/Llenar_ddlProductos",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ CategoriaId: $(this).val() }),
+                success: function (data) {
+                    $("#ddlProducto")
+                        .empty()
+                        .append($("<option></option>")
+                            .val("0")
+                            .html("-Seleccione Producto-"));
+                    $.each(data.d, function (key, value) {
+                        var option = $(document.createElement('option'));
+                        option.html(value.NombreProducto);
+                        option.val(value.Id);
+                        $("#ddlProducto").append(option);
+                    });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus + ": " + XMLHttpRequest.responseText);
+                }
+
+            })
+        })
+        $("#ddlProducto").change(function () {
+            $.ajax({
+                type: "POST",
+                url: "Formulario.aspx/Devolver_Stock",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ Id: $(this).val() }),
+                success: function (data) {
+                    $("#tbUdStock").val(data.d.UnidadesStock);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus + ": " + XMLHttpRequest.responseText);
+                }
+            })
+        })
+        $("#btnMedia").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "Formulario.aspx/Calcular_Media",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ Id: $("#ddlProducto").val() }),
+                success: function (data) {
+                    $("#tbMedia").val(data.d.toFixed(2)+"€");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus + ": " + XMLHttpRequest.responseText);
+                }
+
+            })
+        })
+    })
+</script>

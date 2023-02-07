@@ -79,13 +79,12 @@
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
             </div>
-            <div>
-
+            <div class="row">
+                <asp:Label ID="Label5" runat="server" Enabled="false">Total Facturado: </asp:Label>
+                <asp:TextBox ID="tbTotal" runat="server"></asp:TextBox>
             </div>
-            <asp:Label ID="Label5" runat="server" Enabled="false">Total Facturado: </asp:Label>
-            <asp:TextBox ID="tbTotal" runat="server"></asp:TextBox>
-            <br />
-            <asp:Button 
+            <asp:Button
+                class="btn btn-danger col-6"
                 ID="btnImprimir" 
                 OnClick="btnImprimir_Click" 
                 runat="server" 
